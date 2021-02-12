@@ -17,12 +17,14 @@
 
 set(OpenEXR_VERSION 2.5)
 
+find_package(ZLIB)
 find_package(IlmBase)
 
 find_path(OpenEXR_INCLUDE_DIR NAMES Iex.h PATH_SUFFIXES OpenEXR)
 set(OpenEXR_INCLUDE_DIRS
     ${OpenEXR_INCLUDE_DIR}
-    ${IlmBase_INCLUDE_DIRS})
+    ${IlmBase_INCLUDE_DIRS}
+    ${ZLIB_INCLUDE_DIRS})
 
 if(CMAKE_BUILD_TYPE MATCHES "^Debug$")
     find_library(OpenEXR_IlmImf_LIBRARY NAMES IlmImf-2_5_d IlmImf-2_5)
@@ -31,7 +33,8 @@ else()
 endif()
 set(OpenEXR_LIBRARIES
     ${OpenEXR_IlmImf_LIBRARY}
-    ${IlmBase_LIBRARIES})
+    ${IlmBase_LIBRARIES}
+    ${ZLIB_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -50,7 +53,7 @@ if(OpenEXR_FOUND AND NOT TARGET OpenEXR::IlmImf)
         IMPORTED_LOCATION "${OpenEXR_IlmImf_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS "${OpenEXR_COMPILE_DEFINITIONS}"
         INTERFACE_INCLUDE_DIRECTORIES "${OpenEXR_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "IlmBase")
+        INTERFACE_LINK_LIBRARIES "IlmBase;ZLIB")
 endif()
 if(OpenEXR_FOUND AND NOT TARGET OpenEXR)
     add_library(OpenEXR INTERFACE)

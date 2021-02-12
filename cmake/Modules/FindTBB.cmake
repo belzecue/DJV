@@ -19,9 +19,9 @@
 find_path(TBB_INCLUDE_DIR NAMES tbb/tbb.h)
 set(TBB_INCLUDE_DIRS ${TBB_INCLUDE_DIR})
 
-find_library(TBB_LIBRARY NAMES tbb)
-find_library(TBB_tbbmalloc_LIBRARY NAMES tbbmalloc)
-find_library(TBB_tbbmalloc_proxy_LIBRARY NAMES tbbmalloc_proxy)
+find_library(TBB_LIBRARY NAMES tbb tbb_static)
+find_library(TBB_tbbmalloc_LIBRARY NAMES tbbmalloc tbbmalloc_static)
+find_library(TBB_tbbmalloc_proxy_LIBRARY NAMES tbbmalloc_proxy tbbmalloc_proxy_static)
 set(TBB_LIBRARIES ${TBB_LIBRARY} ${TBB_tbbmalloc_LIBRARY} ${TBB_tbbmalloc_proxy_LIBRARY})
 
 include(FindPackageHandleStandardArgs)

@@ -19,7 +19,7 @@ set(Blosc_INCLUDE_DIRS
     ${Blosc_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIRS})
 
-find_library(Blosc_LIBRARY NAMES blosc)
+find_library(Blosc_LIBRARY NAMES blosc libblosc)
 set(Blosc_LIBRARIES
     ${Blosc_LIBRARY}
     ${ZLIB_LIBRARIES})

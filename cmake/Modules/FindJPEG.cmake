@@ -14,11 +14,17 @@
 #
 # * JPEG
 
+find_package(ZLIB)
+
 find_path(JPEG_INCLUDE_DIR NAMES jpeglib.h)
-set(JPEG_INCLUDE_DIRS ${JPEG_INCLUDE_DIR})
+set(JPEG_INCLUDE_DIRS
+    ${JPEG_INCLUDE_DIR}
+    ${ZLIB_INCLUDE_DIRS})
 
 find_library(JPEG_LIBRARY NAMES jpeg62 jpeg jpeg-static)
-set(JPEG_LIBRARIES ${JPEG_LIBRARY})
+set(JPEG_LIBRARIES
+    ${JPEG_LIBRARY}
+    ${ZLIB_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -36,7 +42,8 @@ if(JPEG_FOUND AND NOT TARGET JPEG::jpeg)
     set_target_properties(JPEG::jpeg PROPERTIES
         IMPORTED_LOCATION "${JPEG_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS "${JPEG_COMPILE_DEFINITIONS}"
-        INTERFACE_INCLUDE_DIRECTORIES "${JPEG_INCLUDE_DIR}")
+        INTERFACE_INCLUDE_DIRECTORIES "${JPEG_INCLUDE_DIR}"
+        INTERFACE_LINK_LIBRARIES "ZLIB")
 endif()
 if(JPEG_FOUND AND NOT TARGET JPEG)
     add_library(JPEG INTERFACE)

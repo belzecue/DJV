@@ -98,6 +98,6 @@ include_directories(src/ptex)
 
 add_subdirectory(src/ptex)
 add_subdirectory(src/utils)
-add_subdirectory(src/tests)
+#add_subdirectory(src/tests)
 add_subdirectory(src/doc)
-add_subdirectory(src/build)
+#add_subdirectory(src/build)

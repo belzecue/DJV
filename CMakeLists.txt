@@ -75,6 +75,9 @@ elseif(WIN32)
     add_definitions(-DDJV_PLATFORM_WINDOWS)
     set(CMAKE_C_FLAGS "/MP /EHsc")
     set(CMAKE_CXX_FLAGS "/MP /EHsc")
+    if(BUILD_SHARED_LIBS)
+        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+    endif()
 endif()
 
 # Set the output directories for the build.

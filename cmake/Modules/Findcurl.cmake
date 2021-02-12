@@ -14,6 +14,8 @@
 #
 # * curl
 
+find_package(ZLIB)
+
 if(WIN32)
 elseif(APPLE)
 else()
@@ -29,6 +31,9 @@ else()
         ${curl_INCLUDE_DIRS}
         ${MbedTLS_INCLUDE_DIRS})
 endif()
+set(curl_INCLUDE_DIRS
+    ${curl_INCLUDE_DIRS}
+    ${ZLIB_INCLUDE_DIRS})
 
 if(CMAKE_BUILD_TYPE MATCHES "^Debug$")
 	find_library(curl_LIBRARY NAMES curl-d libcurl-d curl libcurl libcurl_imp)
@@ -43,6 +48,9 @@ else()
         ${curl_LIBRARIES}
         ${MbedTLS_LIBRARIES})
 endif()
+set(curl_LIBRARIES
+    ${curl_LIBRARIES}
+    ${ZLIB_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -57,17 +65,17 @@ if(curl_FOUND AND NOT TARGET curl::curl)
 	    INTERFACE_COMPILE_DEFINITIONS curl_FOUND
         INTERFACE_INCLUDE_DIRECTORIES "${curl_INCLUDE_DIR}")
 	if(WIN32)
-	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "winmm;ws2_32;advapi32;crypt32")
+	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "winmm;ws2_32;advapi32;crypt32;ZLIB")
 		if(NOT curl_SHARED_LIBS)
 			set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_COMPILE_DEFINITIONS CURL_STATICLIB)
 		endif()
 	elseif(APPLE)
         find_library(CORE_FOUNDATION CoreFoundation REQUIRED)
         find_library(SECURITY Security REQUIRED)
-	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "${CORE_FOUNDATION};${SECURITY}")
+	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "${CORE_FOUNDATION};${SECURITY};ZLIB")
 	else()
 	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${MbedTLS_INCLUDE_DIRS)
-	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES MbedTLS)
+	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "MbedTLS;ZLIB")
 	endif()
 endif()
 if(curl_FOUND AND NOT TARGET curl)

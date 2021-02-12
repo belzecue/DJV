@@ -19,8 +19,13 @@ if(WIN32)
     endif()
 endif()
 
+set(Boost_LINK shared)
+if(NOT BUILD_SHARED_LIBS)
+    set(Boost_LINK static)
+endif()
+
 set(Boost_BUILD_COMMAND_EXTRA)
-if(WIN32)
+if(WIN32 AND BUILD_SHARED_LIBS)
     set(Boost_DLLS
         ${CMAKE_INSTALL_PREFIX}/lib/boost_atomic${Boost_LIB_SUFFIX}.dll
         ${CMAKE_INSTALL_PREFIX}/lib/boost_chrono${Boost_LIB_SUFFIX}.dll
@@ -80,9 +85,9 @@ ExternalProject_Add(
         --disable-icu
         address-model=64
         variant=${Boost_VARIANT}
-        link=shared
+        link=${Boost_LINK}
         threading=multi
-        runtime-link=shared
+        runtime-link=${Boost_LINK}
     COMMAND ${Boost_BUILD_COMMAND_EXTRA}
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND "")

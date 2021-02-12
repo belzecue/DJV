@@ -32,7 +32,11 @@ set(DJV_THIRD_PARTY_ospray FALSE CACHE BOOL "Build ospray")
 
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>DLL)
+if(BUILD_SHARED_LIBS)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>DLL)
+else()
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>)
+endif()
 
 enable_testing()
 

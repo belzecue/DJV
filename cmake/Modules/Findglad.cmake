@@ -14,11 +14,18 @@
 #
 # * glad
 
+find_package(OpenGL REQUIRED)
+
 find_path(glad_INCLUDE_DIR NAMES glad.h)
-set(glad_INCLUDE_DIRS ${glad_INCLUDE_DIR})
+set(glad_INCLUDE_DIRS
+    ${glad_INCLUDE_DIR}
+    ${OPENGL_INCLUDE_DIR})
 
 find_library(glad_LIBRARY NAMES glad)
-set(glad_LIBRARIES ${glad_LIBRARY} ${CMAKE_DL_LIBS})
+set(glad_LIBRARIES
+    ${glad_LIBRARY}
+    ${OPENGL_LIBRARIES}
+    ${CMAKE_DL_LIBS})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -31,7 +38,7 @@ if(glad_FOUND AND NOT TARGET glad::glad)
     set_target_properties(glad::glad PROPERTIES
         IMPORTED_LOCATION "${glad_LIBRARY}"
         INTERFACE_INCLUDE_DIRECTORIES "${glad_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "${CMAKE_DL_LIBS}")
+        INTERFACE_LINK_LIBRARIES "OpenGL::GL;${CMAKE_DL_LIBS}")
 endif()
 if(glad_FOUND AND NOT TARGET glad)
     add_library(glad INTERFACE)
