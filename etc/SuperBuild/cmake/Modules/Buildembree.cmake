@@ -19,6 +19,7 @@ set(embree_ARGS
     -DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
     -DEMBREE_STATIC_LIB=${EMBREE_STATIC_LIB}
+    -DEMBREE_ISPC_SUPPORT=ON
     -DEMBREE_TUTORIALS=OFF)
 if(CMAKE_CXX_STANDARD)
     set(embree_ARGS ${embree_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
@@ -30,7 +31,7 @@ ExternalProject_Add(
     DEPENDS TBB ISPC
     GIT_REPOSITORY https://github.com/embree/embree.git
     GIT_TAG v3.12.1
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_SOURCE_DIR}/embree-patch/CMakeLists.txt
-        ${CMAKE_CURRENT_BINARY_DIR}/embree/src/embree/CMakeLists.txt
+    PATCH_COMMAND
+        ${CMAKE_COMMAND} -E tar xf
+        ${CMAKE_SOURCE_DIR}/embree-patch.tar.gz
     CMAKE_ARGS ${embree_ARGS})
