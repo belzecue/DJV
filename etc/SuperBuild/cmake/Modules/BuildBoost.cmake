@@ -1,8 +1,11 @@
 include(ExternalProject)
 
-set(Boost_UPDATE_COMMAND ./bootstrap)
+set(Boost_UPDATE_COMMAND)
 if(WIN32)
+    set(Boost_UPDATE_COMMAND ./bootstrap)
     set(Boost_UPDATE_COMMAND call ${Boost_UPDATE_COMMAND})
+else()
+    set(Boost_UPDATE_COMMAND ./bootstrap.sh)
 endif()
 
 set(Boost_VARIANT release)

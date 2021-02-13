@@ -96,7 +96,6 @@ if(FFmpeg_FOUND AND NOT TARGET FFmpeg::swscale)
 endif()
 if(FFmpeg_FOUND AND NOT TARGET FFmpeg::avcodec)
     add_library(FFmpeg::avcodec UNKNOWN IMPORTED)
-    find_package(ZLIB REQUIRED)
     set_target_properties(FFmpeg::avcodec PROPERTIES
         IMPORTED_LOCATION "${FFmpeg_avcodec_LIBRARY}"
         INTERFACE_LINK_LIBRARIES "FFmpeg::swresample;FFmpeg::avutil;ZLIB")
@@ -109,7 +108,6 @@ if(FFmpeg_FOUND AND NOT TARGET FFmpeg::avfilter)
 endif()
 if(FFmpeg_FOUND AND NOT TARGET FFmpeg::avformat)
     add_library(FFmpeg::avformat UNKNOWN IMPORTED)
-    find_package(ZLIB REQUIRED)
     set_target_properties(FFmpeg::avformat PROPERTIES
         IMPORTED_LOCATION "${FFmpeg_avformat_LIBRARY}"
         INTERFACE_LINK_LIBRARIES "FFmpeg::avcodec;FFmpeg::swresample;FFmpeg::avutil;ZLIB")

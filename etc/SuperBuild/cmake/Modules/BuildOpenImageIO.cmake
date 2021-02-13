@@ -1,5 +1,10 @@
 include(ExternalProject)
 
+set(OpenImageIO_BUILD_STATIC OFF)
+if(NOT BUILD_SHARED_LIBS)
+    set(OpenImageIO_BUILD_STATIC ON)
+endif()
+
 set(OpenImageIO_ARGS
     -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -14,7 +19,23 @@ set(OpenImageIO_ARGS
     -DOIIO_BUILD_TOOLS=OFF
     -DOIIO_BUILD_TESTS=OFF
     -DBUILD_DOCS=OFF
-    -DUSE_PYTHON=OFF)
+    -DUSE_PYTHON=OFF
+    -DENABLE_BZip2=OFF
+    -DENABLE_OpenColorIO=OFF
+    -DENABLE_DCMTK=OFF
+    -DENABLE_FFmpeg=OFF
+    -DENABLE_Field3D=OFF
+    -DENABLE_GIF=OFF
+    -DENABLE_Libheif=OFF
+    -DENABLE_LibRaw=OFF
+    -DENABLE_OpenJpeg=OFF
+    -DENABLE_WebP=OFF
+    -DENABLE_R3DSDK=OFF
+    -DENABLE_Nuke=OFF
+    -DENABLE_OpenGL=OFF
+    -DENABLE_Qt5=OFF
+    -DENABLE_Libsquish=OFF
+    -DBoost_USE_STATIC_RUNTIME=${OpenImageIO_BUILD_STATIC})
 if(CMAKE_CXX_STANDARD)
     set(OpenImageIO_ARGS ${OpenImageIO_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
 endif()
@@ -22,10 +43,7 @@ endif()
 ExternalProject_Add(
     OpenImageIO
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenImageIO
-    DEPENDS OpenCV OpenVDB OpenEXR TIFF JPEG PNG Boost FreeType TBB ZLIB
+    DEPENDS ZLIB Boost TIFF OpenEXR JPEG PNG FreeType HDF5 OpenCV TBB OpenVDB Ptex
     GIT_REPOSITORY https://github.com/OpenImageIO/oiio.git
     GIT_TAG Release-2.2.9.0
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_SOURCE_DIR}/OpenImageIO-patch/src/cmake/externalpackages.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/OpenImageIO/src/OpenImageIO/src/cmake/externalpackages.cmake
     CMAKE_ARGS ${OpenImageIO_ARGS})

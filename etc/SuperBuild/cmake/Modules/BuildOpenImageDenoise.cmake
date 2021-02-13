@@ -1,9 +1,14 @@
 include(ExternalProject)
 
-cmake(WARNING "From the OpenImageDenoise documentation: "
+message(WARNING "From the OpenImageDenoise documentation: "
     "Please note that installing the Git LFS extension is required to correctly "
     "clone the repository. Cloning without Git LFS will seemingly succeed but "
     "actually some of the files will be invalid and thus compilation will fail.")
+
+set(OIDN_STATIC_LIB OFF)
+if(NOT BUILD_SHARED_LIBS)
+    set(OIDN_STATIC_LIB ON)
+endif()
 
 set(OpenImageDenoise_ARGS
     -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
@@ -18,7 +23,7 @@ set(OpenImageDenoise_ARGS
     -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
     -DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
-    -DOIDN_STATIC_LIB=OFF
+    -DOIDN_STATIC_LIB=${OIDN_STATIC_LIB}
     -DOIDN_APPS=OFF)
 if(CMAKE_CXX_STANDARD)
     set(OpenImageDenoise_ARGS ${OpenImageDenoise_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})

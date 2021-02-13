@@ -36,6 +36,7 @@ if(BUILD_SHARED_LIBS)
     set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>DLL)
 else()
     set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>)
+    set(Boost_USE_STATIC_RUNTIME ON)
 endif()
 
 enable_testing()

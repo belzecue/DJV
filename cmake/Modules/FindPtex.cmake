@@ -14,7 +14,7 @@
 #
 # * Ptex
 
-find_package(ZLIB)
+find_package(ZLIB REQUIRED)
 
 find_path(Ptex_INCLUDE_DIR NAMES PtexVersion.h)
 set(Ptex_INCLUDE_DIRS
@@ -34,7 +34,6 @@ mark_as_advanced(Ptex_INCLUDE_DIR Ptex_LIBRARY)
 
 if(Ptex_FOUND AND NOT TARGET Ptex::Ptex)
     add_library(Ptex::Ptex UNKNOWN IMPORTED)
-    find_package(ZLIB REQUIRED)
     set_target_properties(Ptex::Ptex PROPERTIES
         IMPORTED_LOCATION "${Ptex_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS Ptex_FOUND

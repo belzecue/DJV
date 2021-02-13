@@ -14,8 +14,8 @@
 #
 # * curl
 
-find_package(ZLIB)
-
+find_package(Threads REQUIRED)
+find_package(ZLIB REQUIRED)
 if(WIN32)
 elseif(APPLE)
 else()
@@ -50,7 +50,8 @@ else()
 endif()
 set(curl_LIBRARIES
     ${curl_LIBRARIES}
-    ${ZLIB_LIBRARIES})
+    ${ZLIB_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -74,8 +75,8 @@ if(curl_FOUND AND NOT TARGET curl::curl)
         find_library(SECURITY Security REQUIRED)
 	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "${CORE_FOUNDATION};${SECURITY};ZLIB")
 	else()
-	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${MbedTLS_INCLUDE_DIRS)
-	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "MbedTLS;ZLIB")
+	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${MbedTLS_INCLUDE_DIRS})
+	    set_property(TARGET curl::curl APPEND PROPERTY INTERFACE_LINK_LIBRARIES "MbedTLS;ZLIB;${CMAKE_THREAD_LIBS_INIT}")
 	endif()
 endif()
 if(curl_FOUND AND NOT TARGET curl)

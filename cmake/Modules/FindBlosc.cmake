@@ -14,6 +14,9 @@
 #
 # * Blosc
 
+find_package(Threads REQUIRED)
+find_package(ZLIB REQUIRED)
+
 find_path(Blosc_INCLUDE_DIR NAMES blosc.h)
 set(Blosc_INCLUDE_DIRS
     ${Blosc_INCLUDE_DIR}
@@ -22,7 +25,8 @@ set(Blosc_INCLUDE_DIRS
 find_library(Blosc_LIBRARY NAMES blosc libblosc)
 set(Blosc_LIBRARIES
     ${Blosc_LIBRARY}
-    ${ZLIB_LIBRARIES})
+    ${ZLIB_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -32,12 +36,11 @@ mark_as_advanced(Blosc_INCLUDE_DIR Blosc_LIBRARY)
 
 if(Blosc_FOUND AND NOT TARGET Blosc::blosc)
     add_library(Blosc::blosc UNKNOWN IMPORTED)
-    find_package(ZLIB REQUIRED)
     set_target_properties(Blosc::blosc PROPERTIES
         IMPORTED_LOCATION "${Blosc_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS Blosc_FOUND
+        INTERFACE_COMPILE_DEFINITIONS "Blosc_FOUND"
         INTERFACE_INCLUDE_DIRECTORIES "${Blosc_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES ZLIB)
+        INTERFACE_LINK_LIBRARIES "ZLIB;${CMAKE_THREAD_LIBS_INIT}")
 endif()
 if(Blosc_FOUND AND NOT TARGET Blosc)
     add_library(Blosc INTERFACE)

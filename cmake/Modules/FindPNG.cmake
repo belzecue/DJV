@@ -14,7 +14,7 @@
 #
 # * PNG
 
-find_package(ZLIB)
+find_package(ZLIB REQUIRED)
 
 find_path(PNG_INCLUDE_DIR NAMES png.h)
 set(PNG_INCLUDE_DIRS

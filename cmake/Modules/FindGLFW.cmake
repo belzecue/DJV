@@ -14,29 +14,36 @@
 #
 # * GLFW
 
+find_package(Threads REQUIRED)
 find_package(OpenGL REQUIRED)
-
-find_path(GLFW_INCLUDE_DIR NAMES GLFW/glfw3.h)
-set(GLFW_INCLUDE_DIRS
-    ${GLFW_INCLUDE_DIR}
-    ${OPENGL_INCLUDE_DIR})
-
-find_library(GLFW_LIBRARY NAMES glfw3dll glfw3 glfw)
-set(GLFW_LIBRARIES
-    ${GLFW_LIBRARY}
-    ${OPENGL_LIBRARIES})
 if(WIN32)
 elseif(APPLE)
     find_library(CORE_VIDEO CoreVideo REQUIRED)
     find_library(IO_KIT IOKit REQUIRED)
     find_library(COCOA Cocoa REQUIRED)
     find_library(CARBON Carbon REQUIRED)
+else()
+    find_package(X11 REQUIRED)
+endif()
+
+find_path(GLFW_INCLUDE_DIR NAMES GLFW/glfw3.h)
+set(GLFW_INCLUDE_DIRS ${GLFW_INCLUDE_DIR})
+if(WIN32)
+elseif(APPLE)
+else()
+    set(GLFW_INCLUDE_DIRS ${GLFW_INCLUDE_DIRS} ${X11_INCLUDE_DIR})
+endif()
+set(GLFW_INCLUDE_DIRS ${GLFW_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR})
+
+find_library(GLFW_LIBRARY NAMES glfw3dll glfw3 glfw)
+set(GLFW_LIBRARIES ${GLFW_LIBRARY})
+if(WIN32)
+elseif(APPLE)
     set(GLFW_LIBRARIES ${GLFW_LIBRARIES} ${CORE_VIDEO} ${IO_KIT} ${COCOA} ${CARBON})
 else()
-    find_package(Threads REQUIRED)
-    find_package(X11 REQUIRED)
-    set(GLFW_LIBRARIES ${GLFW_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
+    set(GLFW_LIBRARIES ${GLFW_LIBRARIES} ${X11_LIBRARIES})
 endif()
+set(GLFW_LIBRARIES ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -53,10 +60,10 @@ if(GLFW_FOUND AND NOT TARGET GLFW::glfw)
     if(WIN32)
         set_property(TARGET GLFW::glfw PROPERTY INTERFACE_LINK_LIBRARIES "OpenGL::GL")
     elseif(APPLE)
-	    set_property(TARGET GLFW::glfw PROPERTY INTERFACE_LINK_LIBRARIES "OpenGL::GL;${CORE_VIDEO};${IO_KIT};${COCOA};${CARBON}")
+	    set_property(TARGET GLFW::glfw PROPERTY INTERFACE_LINK_LIBRARIES "${CORE_VIDEO};${IO_KIT};${COCOA};${CARBON};OpenGL::GL")
     else()
 		set_property(TARGET GLFW::glfw APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${X11_INCLUDE_DIR})
-	    set_property(TARGET GLFW::glfw PROPERTY INTERFACE_LINK_LIBRARIES "OpenGL::GL;${X11_LIBRARIES};${CMAKE_THREAD_LIBS_INIT};${CMAKE_DL_LIBS}")
+	    set_property(TARGET GLFW::glfw PROPERTY INTERFACE_LINK_LIBRARIES "${X11_LIBRARIES};OpenGL::GL;${CMAKE_THREAD_LIBS_INIT};${CMAKE_DL_LIBS}")
     endif()
 endif()
 if(GLFW_FOUND AND NOT TARGET GLFW)

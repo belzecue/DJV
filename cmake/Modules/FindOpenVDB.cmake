@@ -16,7 +16,7 @@
 
 find_package(Blosc REQUIRED)
 find_package(TBB REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS iostreams)
 find_package(IlmBase REQUIRED)
 find_package(OpenEXR REQUIRED)
 
@@ -50,7 +50,7 @@ if(OpenVDB_FOUND AND NOT TARGET OpenVDB::OpenVDB)
         IMPORTED_LOCATION "${OpenVDB_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS OpenVDB_FOUND
         INTERFACE_INCLUDE_DIRECTORIES "${OpenVDB_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "OpenEXR;IlmBase;Boost::boost;TBB;Blosc")
+        INTERFACE_LINK_LIBRARIES "OpenEXR;IlmBase;Boost::boost;Boost::iostreams;TBB;Blosc")
 endif()
 if(OpenVDB_FOUND AND NOT TARGET OpenVDB)
     add_library(OpenVDB INTERFACE)

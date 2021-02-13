@@ -15,10 +15,10 @@
 #
 # * TIFF
 
-set(TIFF_VERSION 4.1.0)
+find_package(ZLIB REQUIRED)
+find_package(JPEG REQUIRED)
 
-find_package(ZLIB)
-find_package(JPEG)
+set(TIFF_VERSION 4.1.0)
 
 find_path(TIFF_INCLUDE_DIR NAMES tiff.h)
 set(TIFF_INCLUDE_DIRS
