@@ -86,41 +86,6 @@ mark_as_advanced(
 
 if(embree_FOUND AND NOT TARGET embree::embree)
     add_library(embree::embree UNKNOWN IMPORTED)
-    set(embree_COMPILE_DEFINITIONS
-        embree_FOUND
-        EMBREE_VERSION=3.12.1
-        EMBREE_VERSION_MAJOR=3
-        EMBREE_VERSION_MINOR=12
-        EMBREE_VERSION_PATCH=1
-        EMBREE_VERSION_NOTE=""
-        EMBREE_MAX_ISA=NONE
-        EMBREE_ISA_SSE2=ON
-        EMBREE_ISA_SSE42=ON
-        EMBREE_ISA_AVX=ON 
-        EMBREE_ISA_AVX2=ON
-        EMBREE_ISA_AVX512KNL=OFF
-        EMBREE_ISA_AVX512SKX=ON
-        EMBREE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        EMBREE_ISPC_SUPPORT=ON
-        EMBREE_STATIC_LIB=ON
-        EMBREE_TUTORIALS=OFF
-        EMBREE_RAY_MASK=OFF
-        EMBREE_STAT_COUNTERS=OFF
-        EMBREE_BACKFACE_CULLING=OFF
-        EMBREE_FILTER_FUNCTION=ON
-        EMBREE_IGNORE_INVALID_RAYS=OFF
-        EMBREE_TASKING_SYSTEM=TBB
-        EMBREE_COMPACT_POLYS=OFF
-        EMBREE_GEOMETRY_TRIANGLE=ON
-        EMBREE_GEOMETRY_QUAD=ON
-        EMBREE_GEOMETRY_CURVE=ON
-        EMBREE_GEOMETRY_SUBDIVISION=ON
-        EMBREE_GEOMETRY_USER=ON
-        EMBREE_GEOMETRY_POINT=ON
-        EMBREE_RAY_PACKETS=ON
-        EMBREE_MAX_INSTANCE_LEVEL_COUNT=1
-        EMBREE_CURVE_SELF_INTERSECTION_AVOIDANCE_FACTOR=2.0
-        EMBREE_MIN_WIDTH=OFF)
     set(embree_LINK_LIBRARIES
         ${embree_sse42_LIBRARY}
         ${embree_avx_LIBRARY}
@@ -135,16 +100,9 @@ if(embree_FOUND AND NOT TARGET embree::embree)
         ${CMAKE_THREAD_LIBS_INIT})
     set_target_properties(embree::embree PROPERTIES
         IMPORTED_LOCATION "${embree_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS "${embree_COMPILE_DEFINITIONS}"
+        INTERFACE_COMPILE_DEFINITIONS "embree_FOUND"
         INTERFACE_INCLUDE_DIRECTORIES "${embree_INCLUDE_DIR}"
         INTERFACE_LINK_LIBRARIES "${embree_LINK_LIBRARIES}")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    message("embree_COMPILE_DEFINITIONS: "${embree_COMPILE_DEFINITIONS})
 endif()
 if(embree_FOUND AND NOT TARGET embree)
     add_library(embree INTERFACE)
