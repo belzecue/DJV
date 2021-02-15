@@ -28,13 +28,15 @@ mark_as_advanced(OpenNURBS_INCLUDE_DIR OpenNURBS_LIBRARY)
 
 if(OpenNURBS_FOUND AND NOT TARGET OpenNURBS::opennurbs)
     add_library(OpenNURBS::opennurbs UNKNOWN IMPORTED)
+    set(opennurbs_LINK_LIBRARIES)
+    if(WIN32)
+		set(opennurbs_LINK_LIBRARIES ${opennurbs_LINK_LIBRARIES} Shlwapi)
+    endif()
     set_target_properties(OpenNURBS::opennurbs PROPERTIES
         IMPORTED_LOCATION "${OpenNURBS_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS OpenNURBS_FOUND
-        INTERFACE_INCLUDE_DIRECTORIES "${OpenNURBS_INCLUDE_DIR}")
-    if(WIN32)
-		set_property(TARGET OpenNURBS::opennurbs APPEND PROPERTY INTERFACE_LINK_LIBRARIES Shlwapi)
-    endif()
+        INTERFACE_INCLUDE_DIRECTORIES "${OpenNURBS_INCLUDE_DIR}"
+        INTERFACE_LINK_LIBRARIES ${opennurbs_LINK_LIBRARIES})
 endif()
 if(OpenNURBS_FOUND AND NOT TARGET OpenNURBS)
     add_library(OpenNURBS INTERFACE)

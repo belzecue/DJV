@@ -99,7 +99,7 @@ mark_as_advanced(OpenImageIO_INCLUDE_DIR OpenImageIO_LIBRARY)
 
 if(OpenImageIO_FOUND AND NOT TARGET OpenImageIO::OpenImageIO)
     add_library(OpenImageIO::OpenImageIO UNKNOWN IMPORTED)
-    set(OpenImageIO_INTERFACE_LINK_LIBRARIES
+    set(OpenImageIO_LINK_LIBRARIES
         ${OpenEXR_LIBRARIES}
         ${TIFF_LIBRARIES}
         ${ZLIB_LIBRARIES}
@@ -108,34 +108,34 @@ if(OpenImageIO_FOUND AND NOT TARGET OpenImageIO::OpenImageIO)
         Boost::thread
         Boost::iostreams)
     if(JPEG_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} JPEG)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} JPEG)
     endif()
     if(PNG_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} PNG)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} PNG)
     endif()
     if(FreeType_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} FreeType)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} FreeType)
     endif()
     if(HDF5_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} HDF5)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} HDF5)
     endif()
     if(OpenCV_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} OpenCV)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} OpenCV)
     endif()
     if(TBB_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} TBB)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} TBB)
     endif()
     if(OpenVDB_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} OpenVDB)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} OpenVDB)
     endif()
     if(Ptex_FOUND)
-        set(OpenImageIO_INTERFACE_LINK_LIBRARIES ${OpenImageIO_INTERFACE_LINK_LIBRARIES} Ptex)
+        set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} Ptex)
     endif()
     set_target_properties(OpenImageIO::OpenImageIO PROPERTIES
         IMPORTED_LOCATION "${OpenImageIO_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS "OpenImageIO_FOUND"
         INTERFACE_INCLUDE_DIRECTORIES "${OpenImageIO_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "${OpenImageIO_INTERFACE_LINK_LIBRARIES}")
+        INTERFACE_LINK_LIBRARIES "${OpenImageIO_LINK_LIBRARIES}")
 endif()
 if(OpenImageIO_FOUND AND NOT TARGET OpenImageIO)
     add_library(OpenImageIO INTERFACE)
