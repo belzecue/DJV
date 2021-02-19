@@ -27,4 +27,4 @@ ExternalProject_Add(
     PATCH_COMMAND
         ${CMAKE_COMMAND} -E tar xf
         ${CMAKE_SOURCE_DIR}/openvkl-patch.tar.gz
-    CMAKE_ARGS ${OpenVKL_ARGS})
+    CMAKE_ARGS ${openvkl_ARGS})
