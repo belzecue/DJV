@@ -40,8 +40,7 @@ set(LIBRARIES
     djvImage
     djvGeom
     GLFW
-    glad
-    OpenGL::GL)
+    glad)
 target_link_libraries(djvGL ${LIBRARIES})
 set_target_properties(
     djvGL

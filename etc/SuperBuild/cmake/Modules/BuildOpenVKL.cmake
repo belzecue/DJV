@@ -1,6 +1,6 @@
 include(ExternalProject)
 
-set(OpenVKL_ARGS
+set(openvkl_ARGS
     -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -15,13 +15,16 @@ set(OpenVKL_ARGS
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
     -DBUILD_EXAMPLES=OFF)
 if(CMAKE_CXX_STANDARD)
-    set(OpenVKL_ARGS ${OpenVKL_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
+    set(openvkl_ARGS ${openvkl_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
 endif()
 
 ExternalProject_Add(
-    OpenVKL
-    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenVKL
+    openvkl
+    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/openvkl
     DEPENDS rkcommon embree OpenVDB
     GIT_REPOSITORY https://github.com/openvkl/openvkl.git
-    GIT_TAG v0.11.0
+    GIT_TAG v0.12.0
+    PATCH_COMMAND
+        ${CMAKE_COMMAND} -E tar xf
+        ${CMAKE_SOURCE_DIR}/openvkl-patch.tar.gz
     CMAKE_ARGS ${OpenVKL_ARGS})

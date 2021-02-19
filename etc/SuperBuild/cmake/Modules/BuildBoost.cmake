@@ -90,7 +90,6 @@ ExternalProject_Add(
         variant=${Boost_VARIANT}
         link=${Boost_LINK}
         threading=multi
-        runtime-link=${Boost_LINK}
     COMMAND ${Boost_BUILD_COMMAND_EXTRA}
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND "")

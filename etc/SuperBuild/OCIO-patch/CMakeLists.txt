@@ -60,13 +60,6 @@ if(POLICY CMP0054)
     cmake_policy(SET CMP0054 NEW)
 endif()
 
-if(MSVC AND OCIO_BUILD_STATIC)
-    add_compile_options(
-        $<$<CONFIG:>:/MT>
-        $<$<CONFIG:Debug>:/MTd>
-        $<$<CONFIG:Release>:/MT>)
-endif()
-
 include(ParseArguments)
 include(OCIOMacros)
 include(ExternalProject)

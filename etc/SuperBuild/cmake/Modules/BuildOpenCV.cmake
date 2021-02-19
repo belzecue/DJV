@@ -13,6 +13,7 @@ set(OpenCV_ARGS
     -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
     -DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+    -DBUILD_WITH_STATIC_CRT=OFF
     -DBUILD_LIST=calib3d,dnn,features2d,flann,gapi,imgproc,ml,objdetect,photo,stitching,videoio
     -DBUILD_ZLIB=OFF
     -DBUILD_TIFF=OFF

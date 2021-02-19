@@ -3,6 +3,7 @@
 # This module defines the following variables:
 #
 # * Ptex_FOUND
+# * Ptex_DEFINITIONS
 # * Ptex_INCLUDE_DIRS
 # * Ptex_LIBRARIES
 #
@@ -26,6 +27,13 @@ set(Ptex_LIBRARIES
     ${Ptex_LIBRARY}
     ${ZLIB_LIBRARIES})
 
+set(Ptex_DEFINITIONS -DPtex_FOUND)
+set(Ptex_COMPILE_DEFINITIONS Ptex_FOUND)
+if(NOT BUILD_SHARED_LIBS)
+    set(Ptex_DEFINITIONS ${Ptex_DEFINITIONS} -DPTEX_STATIC)
+    set(Ptex_COMPILE_DEFINITIONS ${Ptex_COMPILE_DEFINITIONS} PTEX_STATIC)
+endif()
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     Ptex
@@ -36,7 +44,7 @@ if(Ptex_FOUND AND NOT TARGET Ptex::Ptex)
     add_library(Ptex::Ptex UNKNOWN IMPORTED)
     set_target_properties(Ptex::Ptex PROPERTIES
         IMPORTED_LOCATION "${Ptex_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS Ptex_FOUND
+        INTERFACE_COMPILE_DEFINITIONS "${Ptex_COMPILE_DEFINITIONS}"
         INTERFACE_INCLUDE_DIRECTORIES "${Ptex_INCLUDE_DIR}"
         INTERFACE_LINK_LIBRARIES "ZLIB")
 endif()

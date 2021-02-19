@@ -1,8 +1,8 @@
-find_package(OpenVKL REQUIRED)
+find_package(openvkl REQUIRED)
 
 set(source main.cpp)
 
-add_executable(OpenVKLTest ${header} ${source})
-target_link_libraries(OpenVKLTest OpenVKL)
+add_executable(openvklTest ${header} ${source})
+target_link_libraries(openvklTest openvkl)
 
-add_test(OpenVKLTest OpenVKLTest)
+add_test(openvklTest openvklTest)

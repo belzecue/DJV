@@ -25,6 +25,7 @@ set(OpenImageIO_ARGS
     -DENABLE_DCMTK=OFF
     -DENABLE_FFmpeg=OFF
     -DENABLE_Field3D=OFF
+    -DENABLE_Freetype=OFF
     -DENABLE_GIF=OFF
     -DENABLE_Libheif=OFF
     -DENABLE_LibRaw=OFF
@@ -35,7 +36,7 @@ set(OpenImageIO_ARGS
     -DENABLE_OpenGL=OFF
     -DENABLE_Qt5=OFF
     -DENABLE_Libsquish=OFF
-    -DBoost_USE_STATIC_RUNTIME=${OpenImageIO_BUILD_STATIC})
+    -DLINKSTATIC=${OpenImageIO_BUILD_STATIC})
 if(CMAKE_CXX_STANDARD)
     set(OpenImageIO_ARGS ${OpenImageIO_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
 endif()
@@ -43,7 +44,10 @@ endif()
 ExternalProject_Add(
     OpenImageIO
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenImageIO
-    DEPENDS ZLIB Boost TIFF OpenEXR JPEG PNG FreeType HDF5 OpenCV TBB OpenVDB Ptex
+    DEPENDS ZLIB Boost TIFF OpenEXR JPEG PNG  HDF5 OpenCV TBB OpenVDB Ptex
     GIT_REPOSITORY https://github.com/OpenImageIO/oiio.git
     GIT_TAG Release-2.2.9.0
+    PATCH_COMMAND
+        ${CMAKE_COMMAND} -E tar xf
+        ${CMAKE_SOURCE_DIR}/OpenImageIO-patch.tar.gz
     CMAKE_ARGS ${OpenImageIO_ARGS})

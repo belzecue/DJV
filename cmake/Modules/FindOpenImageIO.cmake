@@ -15,7 +15,7 @@
 # * OpenImageIO
 
 find_package(ZLIB REQUIRED)
-find_package(Boost REQUIRED COMPONENTS filesystem thread iostreams)
+find_package(Boost REQUIRED COMPONENTS filesystem system thread)
 find_package(TIFF REQUIRED)
 find_package(OpenEXR REQUIRED)
 find_package(JPEG)
@@ -99,14 +99,18 @@ mark_as_advanced(OpenImageIO_INCLUDE_DIR OpenImageIO_LIBRARY)
 
 if(OpenImageIO_FOUND AND NOT TARGET OpenImageIO::OpenImageIO)
     add_library(OpenImageIO::OpenImageIO UNKNOWN IMPORTED)
+    set(OpenImageIO_COMPILE_DEFINITIONS OpenImageIO_FOUND)
+    if(NOT BUILD_SHARED_LIBS)
+        set(OpenImageIO_COMPILE_DEFINITIONS ${OpenImageIO_COMPILE_DEFINITIONS} OIIO_STATIC_DEFINE)
+    endif()
     set(OpenImageIO_LINK_LIBRARIES
         ${OpenEXR_LIBRARIES}
         ${TIFF_LIBRARIES}
         ${ZLIB_LIBRARIES}
         Boost::boost
         Boost::filesystem
-        Boost::thread
-        Boost::iostreams)
+        Boost::system
+        Boost::thread)
     if(JPEG_FOUND)
         set(OpenImageIO_LINK_LIBRARIES ${OpenImageIO_LINK_LIBRARIES} JPEG)
     endif()
@@ -133,7 +137,7 @@ if(OpenImageIO_FOUND AND NOT TARGET OpenImageIO::OpenImageIO)
     endif()
     set_target_properties(OpenImageIO::OpenImageIO PROPERTIES
         IMPORTED_LOCATION "${OpenImageIO_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS "OpenImageIO_FOUND"
+        INTERFACE_COMPILE_DEFINITIONS "${OpenImageIO_COMPILE_DEFINITIONS}"
         INTERFACE_INCLUDE_DIRECTORIES "${OpenImageIO_INCLUDE_DIR}"
         INTERFACE_LINK_LIBRARIES "${OpenImageIO_LINK_LIBRARIES}")
 endif()
