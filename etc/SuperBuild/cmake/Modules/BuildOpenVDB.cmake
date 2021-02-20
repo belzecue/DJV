@@ -33,5 +33,5 @@ ExternalProject_Add(
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenVDB
     DEPENDS OpenEXR IlmBase Boost TBB Blosc
     GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb.git
-    GIT_TAG v7.2.2
+    GIT_TAG v8.0.1
     CMAKE_ARGS ${OpenVDB_ARGS})

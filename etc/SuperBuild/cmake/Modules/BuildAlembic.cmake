@@ -34,4 +34,7 @@ ExternalProject_Add(
     DEPENDS HDF5 Boost IlmBase
     GIT_REPOSITORY "https://github.com/alembic/alembic.git"
     GIT_TAG 1.7.16
+    PATCH_COMMAND
+        ${CMAKE_COMMAND} -E tar xf
+        ${CMAKE_SOURCE_DIR}/Alembic-patch.tar.gz
     CMAKE_ARGS ${Alembic_ARGS})

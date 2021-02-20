@@ -38,9 +38,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 enable_testing()
 
-if(APPLE)
-    set(CMAKE_CXX_STANDARD 11)
-endif()
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(Threads REQUIRED)
 find_package(OpenGL REQUIRED)
