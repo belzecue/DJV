@@ -19,18 +19,18 @@
 find_path(TBB_INCLUDE_DIR NAMES tbb/tbb.h)
 set(TBB_INCLUDE_DIRS ${TBB_INCLUDE_DIR})
 
-find_library(TBB_LIBRARY NAMES tbb tbb_static)
+find_library(TBB_tbb_LIBRARY NAMES tbb tbb_static)
 find_library(TBB_tbbmalloc_LIBRARY NAMES tbbmalloc tbbmalloc_static)
 find_library(TBB_tbbmalloc_proxy_LIBRARY NAMES tbbmalloc_proxy tbbmalloc_proxy_static)
-set(TBB_LIBRARIES ${TBB_LIBRARY} ${TBB_tbbmalloc_LIBRARY} ${TBB_tbbmalloc_proxy_LIBRARY})
+set(TBB_LIBRARIES ${TBB_tbb_LIBRARY} ${TBB_tbbmalloc_LIBRARY} ${TBB_tbbmalloc_proxy_LIBRARY})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     TBB
-    REQUIRED_VARS TBB_INCLUDE_DIR TBB_LIBRARY)
+    REQUIRED_VARS TBB_INCLUDE_DIR TBB_tbb_LIBRARY)
 mark_as_advanced(
     TBB_INCLUDE_DIR
-    TBB_LIBRARY
+    TBB_tbb_LIBRARY
     TBB_tbbmalloc_LIBRARY
     TBB_tbbmalloc_proxy_LIBRARY)
 
@@ -41,7 +41,7 @@ list(APPEND TBB_COMPILE_DEFINITIONS __TBBMALLOC_NO_IMPLICIT_LINKAGE)
 if(TBB_FOUND AND NOT TARGET TBB::tbb)
     add_library(TBB::tbb UNKNOWN IMPORTED)
     set_target_properties(TBB::tbb PROPERTIES
-        IMPORTED_LOCATION "${TBB_LIBRARY}"
+        IMPORTED_LOCATION "${TBB_tbb_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS "${TBB_COMPILE_DEFINITIONS}"
         INTERFACE_INCLUDE_DIRECTORIES "${TBB_INCLUDE_DIR}")
 endif()

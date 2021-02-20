@@ -11,7 +11,11 @@ set(OpenSubdiv_ARGS
     -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
     -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
     -DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}
-    -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS})
+    -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+    -DNO_EXAMPLES=ON
+    -DNO_TUTORIALS=ON
+    -DNO_DOC=ON
+    -DNO_TESTS=ON)
 if(CMAKE_CXX_STANDARD)
     set(OpenSubdiv_ARGS ${OpenSubdiv_ARGS} -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD})
 endif()
@@ -19,7 +23,6 @@ endif()
 ExternalProject_Add(
     OpenSubdiv
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenSubdiv
-    DEPENDS ${OpenSubdiv_DEPS}
-    GIT_REPOSITORY "https://github.com/PixarAnimationStudios/OpenSubdiv.git"
-    GIT_TAG v3_4_4
+    DEPENDS TBB
+    URL https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v3_4_4.tar.gz
     CMAKE_ARGS ${OpenSubdiv_ARGS})

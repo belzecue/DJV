@@ -13,7 +13,7 @@ set(source
 add_library(djvOCIO ${header} ${source})
 set(LIBRARIES
     djvGL
-    OCIO)
+    OpenColorIO)
 target_link_libraries(djvOCIO ${LIBRARIES})
 set_target_properties(
     djvOCIO

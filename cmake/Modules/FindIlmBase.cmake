@@ -22,7 +22,7 @@
 set(IlmBase_VERSION 2.5)
 
 find_path(IlmBase_INCLUDE_DIR NAMES half.h PATH_SUFFIXES OpenEXR)
-set(Imath_INCLUDE_DIRS ${Imath_INCLUDE_DIR})
+set(IlmBase_INCLUDE_DIRS ${IlmBase_INCLUDE_DIR})
 
 if(CMAKE_BUILD_TYPE MATCHES "^Debug$")
     find_library(IlmBase_Half_LIBRARY NAMES Half-2_5_d Half-2_5)
@@ -111,3 +111,7 @@ if(IlmBase_FOUND AND NOT TARGET IlmBase)
     target_link_libraries(IlmBase INTERFACE IlmBase::Imath)
     target_link_libraries(IlmBase INTERFACE IlmBase::IlmThread)
 endif()
+
+# \todo Alembic needs special variables:
+set(ALEMBIC_ILMBASE_INCLUDE_DIRECTORY ${IlmBase_INCLUDE_DIRS})
+set(ALEMBIC_ILMBASE_LIBS ${IlmBase_LIBRARIES})

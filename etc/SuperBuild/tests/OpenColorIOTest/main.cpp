@@ -4,6 +4,6 @@
 
 int main(int argc, char* argv[])
 {
-    std::cout << "OCIO version: " << OCIO_NAMESPACE::GetVersion() << std::endl;
+    std::cout << "OpenColorIO version: " << OCIO_NAMESPACE::GetVersion() << std::endl;
     return 0;
 }

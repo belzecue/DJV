@@ -163,7 +163,7 @@ set(DJV_THIRD_PARTY_REQUIRED_DEPS
     RtAudio
     IlmBase
     PNG
-    OCIO
+    OpenColorIO
     #OTIO
     FreeType)
 
