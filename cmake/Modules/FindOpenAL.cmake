@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * OpenAL_FOUND
 # * OpenAL_INCLUDE_DIRS
 # * OpenAL_LIBRARIES
 #

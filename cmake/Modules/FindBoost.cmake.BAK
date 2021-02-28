@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * Boost_FOUND
 # * Boost_INCLUDE_DIRS
 # * Boost_LIBRARIES
 #

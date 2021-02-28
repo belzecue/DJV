@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * FreeType_FOUND
 # * FreeType_INCLUDE_DIRS
 # * FreeType_LIBRARIES
 #

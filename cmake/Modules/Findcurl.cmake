@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * curl_FOUND
 # * curl_INCLUDE_DIRS
 # * curl_LIBRARIES
 #

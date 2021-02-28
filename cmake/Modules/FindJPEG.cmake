@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * JPEG_FOUND
 # * JPEG_INCLUDE_DIRS
 # * JPEG_LIBRARIES
 #

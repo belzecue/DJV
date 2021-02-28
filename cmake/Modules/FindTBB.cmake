@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * TBB_FOUND
 # * TBB_INCLUDE_DIRS
 # * TBB_LIBRARIES
 #

@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * OpenNURBS_FOUND
 # * OpenNURBS_INCLUDE_DIRS
 # * OpenNURBS_LIBRARIES
 #

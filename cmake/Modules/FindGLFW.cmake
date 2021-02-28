@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * GLFW_FOUND
 # * GLFW_INCLUDE_DIRS
 # * GLFW_LIBRARIES
 #

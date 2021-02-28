@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * glad_FOUND
 # * glad_INCLUDE_DIRS
 # * glad_LIBRARIES
 #

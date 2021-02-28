@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * RapidJSON_FOUND
 # * RapidJSON_INCLUDE_DIRS
 #
 # This module defines the following interfaces:

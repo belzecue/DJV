@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * OpenColorIO_FOUND
 # * OCIO_DEFINITIONS
 # * OCIO_INCLUDE_DIRS
 # * OCIO_LIBRARIES

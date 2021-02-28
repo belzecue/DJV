@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * ZLIB_FOUND
 # * ZLIB_INCLUDE_DIRS
 # * ZLIB_LIBRARIES
 #

@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * rkcommon_FOUND
 # * rkcommon_INCLUDE_DIRS
 # * rkcommon_LIBRARIES
 #

@@ -2,9 +2,8 @@
 #
 # This module defines the following variables:
 #
-# * embree_FOUND
-# * embree_INCLUDE_DIRS
-# * embree_LIBRARIES
+# * EMBREE_INCLUDE_DIRS
+# * EMBREE_LIBRARIES
 #
 # This module defines the following imported targets:
 #
@@ -18,41 +17,51 @@ find_package(Threads REQUIRED)
 find_package(ISPC REQUIRED)
 find_package(TBB REQUIRED)
 
-find_path(embree_INCLUDE_DIR NAMES embree3/rtcore.h)
-set(embree_INCLUDE_DIRS
-    ${embree_INCLUDE_DIR}
+find_path(EMBREE_INCLUDE_DIR NAMES embree3/rtcore.h)
+set(EMBREE_INCLUDE_DIRS
+    ${EMBREE_INCLUDE_DIR}
     ${TBB_INCLUDE_DIRS})
 
-find_library(embree_LIBRARY NAMES embree3)
-find_library(embree_avx_LIBRARY NAMES embree_avx)
-find_library(embree_avx2_LIBRARY NAMES embree_avx2)
-find_library(embree_avx512skx_LIBRARY NAMES embree_avx512skx)
-find_library(embree_sse42_LIBRARY NAMES embree_sse42)
-find_library(embree_tasking_LIBRARY NAMES tasking)
-find_library(embree_lexers_LIBRARY NAMES lexers)
-find_library(embree_simd_LIBRARY NAMES simd)
-find_library(embree_math_LIBRARY NAMES math)
-find_library(embree_sys_LIBRARY NAMES sys)
-set(embree_LIBRARIES ${embree_LIBRARY})
-if(embree_avx_LIBRARY)
-    set(embree_LIBRARIES ${embree_LIBRARIES} ${embree_avx_LIBRARY})
+find_library(EMBREE_LIBRARY NAMES embree3)
+find_library(EMBREE_AVX_LIBRARY NAMES embree_avx)
+find_library(EMBREE_AVX2_LIBRARY NAMES embree_avx2)
+find_library(EMBREE_AVX512SKX_LIBRARY NAMES embree_avx512skx)
+find_library(EMBREE_SSE42_LIBRARY NAMES embree_sse42)
+find_library(EMBREE_TASKING_LIBRARY NAMES tasking)
+find_library(EMBREE_LEXERS_LIBRARY NAMES lexers)
+find_library(EMBREE_SIMD_LIBRARY NAMES simd)
+find_library(EMBREE_NATH_LIBRARY NAMES math)
+find_library(EMBREE_SYS_LIBRARY NAMES sys)
+set(EMBREE_LIBRARIES ${EMBREE_LIBRARY})
+if(EMBREE_AVX_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_AVX_LIBRARY})
 endif()
-if(embree_avx2_LIBRARY)
-    set(embree_LIBRARIES ${embree_LIBRARIES} ${embree_avx2_LIBRARY})
+if(EMBREE_AVX2_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_AVX2_LIBRARY})
 endif()
-if(embree_avx512skx_LIBRARY)
-    set(embree_LIBRARIES ${embree_LIBRARIES} ${embree_avx512skx_LIBRARY})
+if(EMBREE_AVX512SKX_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_AVX512SKX_LIBRARY})
 endif()
-if(embree_sse42_LIBRARY)
-    set(embree_LIBRARIES ${embree_LIBRARIES} ${embree_sse42_LIBRARY})
+if(EMBREE_SSE42_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_SSE42_LIBRARY})
 endif()
-set(embree_LIBRARIES
-    ${embree_LIBRARIES}
-    ${embree_sys_LIBRARY}
-    ${embree_math_LIBRARY}
-    ${embree_simd_LIBRARY}
-    ${embree_lexers_LIBRARY}
-    ${embree_tasking_LIBRARY}
+if(EMBREE_SYS_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_SYS_LIBRARY})
+endif()
+if(EMBREE_MATH_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_MATH_LIBRARY})
+endif()
+if(EMBREE_SIMD_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_SIMD_LIBRARY})
+endif()
+if(EMBREE_LEXERS_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_LEXERS_LIBRARY})
+endif()
+if(EMBREE_TASKING_LIBRARY)
+    list(APPEND EMBREE_LIBRARIES ${EMBREE_TASKING_LIBRARY})
+endif()
+set(EMBREE_LIBRARIES
+    ${EMBREE_LIBRARIES}
     ${TBB_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT})
 
@@ -60,55 +69,62 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     embree
     REQUIRED_VARS
-        embree_INCLUDE_DIR
-        embree_LIBRARY
-        embree_tasking_LIBRARY
-        embree_lexers_LIBRARY
-        embree_simd_LIBRARY
-        embree_math_LIBRARY
-        embree_sys_LIBRARY)
+        EMBREE_INCLUDE_DIR
+        EMBREE_LIBRARY)
 mark_as_advanced(
-    embree_INCLUDE_DIR
-    embree_LIBRARY
-    embree_tasking_LIBRARY
-    embree_lexers_LIBRARY
-    embree_simd_LIBRARY
-    embree_math_LIBRARY
-    embree_sys_LIBRARY
-    embree_avx_LIBRARY
-    embree_avx2_LIBRARY
-    embree_avx512skx_LIBRARY
-    embree_sse42_LIBRARY)
+    EMBREE_INCLUDE_DIR
+    EMBREE_LIBRARY
+    EMBREE_TASKING_LIBRARY
+    EMBREE_LEXERS_LIBRARY
+    EMBREE_SIMD_LIBRARY
+    EMBREE_MATH_LIBRARY
+    EMBREE_SYS_LIBRARY
+    EMBREE_AVX_LIBRARY
+    EMBREE_AVX2_LIBRARY
+    EMBREE_AVX512SKX_LIBRARY
+    EMBREE_SSE42_LIBRARY)
 
 if(embree_FOUND AND NOT TARGET embree::embree)
     add_library(embree::embree UNKNOWN IMPORTED)
-    set(embree_LINK_LIBRARIES
-        ${embree_sys_LIBRARY}
-        ${embree_math_LIBRARY}
-        ${embree_simd_LIBRARY}
-        ${embree_lexers_LIBRARY}
-        ${embree_tasking_LIBRARY})
-    if(embree_avx_LIBRARY)
-        set(embree_LINK_LIBRARIES ${embree_LINK_LIBRARIES} ${embree_avx_LIBRARY})
+    set(EMBREE_LINK_LIBRARIES)
+    if(EMBREE_AVX_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_AVX_LIBRARY})
     endif()
-    if(embree_avx2_LIBRARY)
-        set(embree_LINK_LIBRARIES ${embree_LINK_LIBRARIES} ${embree_avx2_LIBRARY})
+    if(EMBREE_AVX2_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_AVX2_LIBRARY})
     endif()
-    if(embree_avx512skx_LIBRARY)
-        set(embree_LINK_LIBRARIES ${embree_LINK_LIBRARIES} ${embree_avx512skx_LIBRARY})
+    if(EMBREE_AVX512SKX_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_AVX512SKX_LIBRARY})
     endif()
-    if(embree_sse42_LIBRARY)
-        set(embree_LINK_LIBRARIES ${embree_LINK_LIBRARIES} ${embree_sse42_LIBRARY})
+    if(EMBREE_SSE42_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_SSE42_LIBRARY})
     endif()
-    set(embree_LINK_LIBRARIES
-        ${embree_LINK_LIBRARIES}
+    if(EMBREE_SYS_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_SYS_LIBRARY})
+    endif()
+    if(EMBREE_MATH_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_MATH_LIBRARY})
+    endif()
+    if(EMBREE_SIMD_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_SIMD_LIBRARY})
+    endif()
+    if(EMBREE_LEXERS_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_LEXERS_LIBRARY})
+    endif()
+    if(EMBREE_TASKING_LIBRARY)
+        list(APPEND EMBREE_LINK_LIBRARIES ${EMBREE_TASKING_LIBRARY})
+    endif()
+    set(EMBREE_LINK_LIBRARIES
+        ${EMBREE_LINK_LIBRARIES}
         TBB
         ${CMAKE_THREAD_LIBS_INIT})
     set_target_properties(embree::embree PROPERTIES
-        IMPORTED_LOCATION "${embree_LIBRARY}"
+        IMPORTED_LOCATION "${EMBREE_LIBRARY}"
+        IMPORTED_CONFIGURATIONS "${CMAKE_BUILD_TYPE}"
+        IMPORTED_LOCATION_${CMAKE_BUILD_TYPE} "${EMBREE_LIBRARY}"
         INTERFACE_COMPILE_DEFINITIONS "embree_FOUND"
-        INTERFACE_INCLUDE_DIRECTORIES "${embree_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "${embree_LINK_LIBRARIES}")
+        INTERFACE_INCLUDE_DIRECTORIES "${EMBREE_INCLUDE_DIR}"
+        INTERFACE_LINK_LIBRARIES "${EMBREE_LINK_LIBRARIES}")
 endif()
 if(embree_FOUND AND NOT TARGET embree)
     add_library(embree INTERFACE)

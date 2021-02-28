@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * OpenCV_FOUND
 # * OpenCV_INCLUDE_DIRS
 # * OpenCV_INCLUDES
 # * OpenCV_LIBRARIES

@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * GLM_FOUND
 # * GLM_INCLUDE_DIRS
 #
 # This module defines the following interfaces:

@@ -4,7 +4,7 @@
 
 if (Ptex_FOUND)
     add_oiio_plugin (ptexinput.cpp
-                     INCLUDE_DIRS ${Ptex_INCLUDE_DIRS}
-                     LINK_LIBRARIES ${Ptex_LIBRARIES}
-                     DEFINITIONS "-DUSE_PTEX;${Ptex_COMPILE_DEFINITIONS}")
+                     INCLUDE_DIRS ${PTEX_INCLUDE_DIRS}
+                     LINK_LIBRARIES ${PTEX_LIBRARIES}
+                     DEFINITIONS "-DUSE_PTEX;${PTEX_COMPILE_DEFINITIONS}")
 endif ()

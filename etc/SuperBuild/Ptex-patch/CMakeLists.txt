@@ -94,6 +94,10 @@ if (${PRMAN_15_COMPATIBLE_PTEX})
     add_definitions(-DPTEX_NO_LARGE_METADATA_BLOCKS)
 endif ()
 
+if(WIN32)
+    SET(RUNTIME_INSTALL_DIR bin)
+endif()
+
 include_directories(src/ptex)
 
 add_subdirectory(src/ptex)

@@ -2,9 +2,8 @@
 #
 # This module defines the following variables:
 #
-# * OpenSubdiv_FOUND
-# * OpenSubdiv_INCLUDE_DIRS
-# * OpenSubdiv_LIBRARIES
+# * OPENSUBDIV_INCLUDE_DIRS
+# * OPENSUBDIV_LIBRARIES
 #
 # This module defines the following imported targets:
 #
@@ -16,29 +15,37 @@
 
 find_package(TBB REQUIRED)
 
-find_path(OpenSubdiv_INCLUDE_DIR NAMES opensubdiv/version.h)
-set(OpenSubdiv_INCLUDE_DIRS
-    ${OpenSubdiv_INCLUDE_DIR}
+find_path(OPENSUBDIV_INCLUDE_DIR NAMES opensubdiv/version.h)
+set(OPENSUBDIV_INCLUDE_DIRS
+    ${OPENSUBDIV_INCLUDE_DIR}
     ${TBB_INCLUDE_DIRS})
 
-find_library(OpenSubdiv_LIBRARY NAMES osdCPU)
-set(OpenSubdiv_LIBRARIES
-    ${OpenSubdiv_LIBRARY}
+find_library(OPENSUBDIV_CPU_LIBRARY NAMES osdCPU)
+find_library(OPENSUBDIV_GPU_LIBRARY NAMES osdGPU)
+set(OPENSUBDIV_LIBRARIES
+    ${OPENSUBDIV_CPU_LIBRARY}
+    ${OPENSUBDIV_GPU_LIBRARY}
     ${TBB_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     OpenSubdiv
-    REQUIRED_VARS OpenSubdiv_INCLUDE_DIR OpenSubdiv_LIBRARY)
-mark_as_advanced(OpenSubdiv_INCLUDE_DIR OpenSubdiv_LIBRARY)
+    REQUIRED_VARS
+        OPENSUBDIV_INCLUDE_DIR
+        OPENSUBDIV_CPU_LIBRARY
+        OPENSUBDIV_GPU_LIBRARY)
+mark_as_advanced(
+    OPENSUBDIV_INCLUDE_DIR
+    OPENSUBDIV_CPU_LIBRARY
+    OPENSUBDIV_GPU_LIBRARY)
 
 if(OpenSubdiv_FOUND AND NOT TARGET OpenSubdiv::OpenSubdiv)
     add_library(OpenSubdiv::OpenSubdiv UNKNOWN IMPORTED)
     set_target_properties(OpenSubdiv::OpenSubdiv PROPERTIES
-        IMPORTED_LOCATION "${OpenSubdiv_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS "OpenSubdiv_FOUND"
-        INTERFACE_INCLUDE_DIRECTORIES "${OpenSubdiv_INCLUDE_DIR}"
-        INTERFACE_LINK_LIBRARIES "TBB")
+        IMPORTED_LOCATION "${OPENSUBDIV_CPU_LIBRARY}"
+        INTERFACE_COMPILE_DEFINITIONS "OPENSUBDIV_FOUND"
+        INTERFACE_INCLUDE_DIRECTORIES "${OPENSUBDIV_INCLUDE_DIR}"
+        INTERFACE_LINK_LIBRARIES "${OPENSUBDIV_GPU_LIBRARY};TBB")
 endif()
 if(OpenSubdiv_FOUND AND NOT TARGET OpenSubdiv)
     add_library(OpenSubdiv INTERFACE)

@@ -2,10 +2,9 @@
 #
 # This module defines the following variables:
 #
-# * Ptex_FOUND
-# * Ptex_DEFINITIONS
-# * Ptex_INCLUDE_DIRS
-# * Ptex_LIBRARIES
+# * PTEX_DEFINITIONS
+# * PTEX_INCLUDE_DIRS
+# * PTEX_LIBRARIES
 #
 # This module defines the following imported targets:
 #
@@ -17,35 +16,35 @@
 
 find_package(ZLIB REQUIRED)
 
-find_path(Ptex_INCLUDE_DIR NAMES PtexVersion.h)
-set(Ptex_INCLUDE_DIRS
-    ${Ptex_INCLUDE_DIR}
+find_path(PTEX_INCLUDE_DIR NAMES PtexVersion.h)
+set(PTEX_INCLUDE_DIRS
+    ${PTEX_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIRS})
 
-find_library(Ptex_LIBRARY NAMES Ptex)
-set(Ptex_LIBRARIES
-    ${Ptex_LIBRARY}
+find_library(PTEX_LIBRARY NAMES Ptex)
+set(PTEX_LIBRARIES
+    ${PTEX_LIBRARY}
     ${ZLIB_LIBRARIES})
 
-set(Ptex_DEFINITIONS -DPtex_FOUND)
-set(Ptex_COMPILE_DEFINITIONS Ptex_FOUND)
+set(PTEX_DEFINITIONS -DPtex_FOUND)
+set(PTEX_COMPILE_DEFINITIONS Ptex_FOUND)
 if(NOT BUILD_SHARED_LIBS)
-    set(Ptex_DEFINITIONS ${Ptex_DEFINITIONS} -DPTEX_STATIC)
-    set(Ptex_COMPILE_DEFINITIONS ${Ptex_COMPILE_DEFINITIONS} PTEX_STATIC)
+    set(PTEX_DEFINITIONS ${PTEX_DEFINITIONS} -DPTEX_STATIC)
+    set(PTEX_COMPILE_DEFINITIONS ${PTEX_COMPILE_DEFINITIONS} PTEX_STATIC)
 endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     Ptex
-    REQUIRED_VARS Ptex_INCLUDE_DIR Ptex_LIBRARY)
-mark_as_advanced(Ptex_INCLUDE_DIR Ptex_LIBRARY)
+    REQUIRED_VARS PTEX_INCLUDE_DIR PTEX_LIBRARY)
+mark_as_advanced(PTEX_INCLUDE_DIR PTEX_LIBRARY)
 
 if(Ptex_FOUND AND NOT TARGET Ptex::Ptex)
     add_library(Ptex::Ptex UNKNOWN IMPORTED)
     set_target_properties(Ptex::Ptex PROPERTIES
-        IMPORTED_LOCATION "${Ptex_LIBRARY}"
-        INTERFACE_COMPILE_DEFINITIONS "${Ptex_COMPILE_DEFINITIONS}"
-        INTERFACE_INCLUDE_DIRECTORIES "${Ptex_INCLUDE_DIR}"
+        IMPORTED_LOCATION "${PTEX_LIBRARY}"
+        INTERFACE_COMPILE_DEFINITIONS "${PTEX_COMPILE_DEFINITIONS}"
+        INTERFACE_INCLUDE_DIRECTORIES "${PTEX_INCLUDE_DIR}"
         INTERFACE_LINK_LIBRARIES "ZLIB")
 endif()
 if(Ptex_FOUND AND NOT TARGET Ptex)

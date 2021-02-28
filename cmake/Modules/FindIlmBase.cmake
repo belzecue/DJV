@@ -2,8 +2,8 @@
 #
 # This module defines the following variables:
 #
-# * IlmBase_FOUND
 # * IlmBase_VERSION
+# * IlmBase_DEFINITIONS
 # * IlmBase_INCLUDE_DIRS
 # * IlmBase_LIBRARIES
 #
@@ -63,8 +63,10 @@ mark_as_advanced(
     IlmBase_Imath_LIBRARY
     IlmBase_IlmBase_LIBRARY)
 
+set(IlmBase_DEFINITIONS -DIlmBase_FOUND)
 set(IlmBase_COMPILE_DEFINITIONS IlmBase_FOUND)
 if(BUILD_SHARED_LIBS)
+    list(APPEND IlmBase_DEFINITIONS -DOPENEXR_DLL)
     list(APPEND IlmBase_COMPILE_DEFINITIONS OPENEXR_DLL)
 endif()
 
@@ -114,4 +116,8 @@ endif()
 
 # \todo Alembic needs special variables:
 set(ALEMBIC_ILMBASE_INCLUDE_DIRECTORY ${IlmBase_INCLUDE_DIRS})
-set(ALEMBIC_ILMBASE_LIBS ${IlmBase_LIBRARIES})
+set(ALEMBIC_ILMBASE_IMATH_LIB ${IlmBase_Imath_LIBRARY})
+set(ALEMBIC_ILMBASE_ILMTHREAD_LIB ${IlmBase_IlmThread_LIBRARY})
+set(ALEMBIC_ILMBASE_IEX_LIB ${IlmBase_Iex_LIBRARY})
+set(ALEMBIC_ILMBASE_HALF_LIB ${IlmBase_Half_LIBRARY})
+set(ALEMBIC_ILMBASE_IEXMATH_LIB ${IlmBase_IexMath_LIBRARY})

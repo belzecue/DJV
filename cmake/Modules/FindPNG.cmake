@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * PNG_FOUND
 # * PNG_INCLUDE_DIRS
 # * PNG_LIBRARIES
 #
@@ -26,7 +25,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^Debug$")
         NAMES png16d libpng16d libpng16_staticd pngd png16 png16_static libpng16_static png)
 else()
     find_library(PNG_LIBRARY
-        NAMES png16 png16_static libpng16_static png)
+        NAMES png16 libpng16 png16_static libpng16_static png)
 endif()
 set(PNG_LIBRARIES
     ${PNG_LIBRARY}

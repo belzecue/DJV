@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * ISPC_FOUND
 # * ISPC_EXECUTABLE
 
 find_program(ISPC_EXECUTABLE NAMES ispc)

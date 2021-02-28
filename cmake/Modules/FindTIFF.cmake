@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * TIFF_FOUND
 # * TIFF_VERSION
 # * TIFF_INCLUDE_DIRS
 # * TIFF_LIBRARIES

@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * USD_FOUND
 # * USD_DEFINITIONS
 # * USD_INCLUDE_DIRS
 # * USD_LIBRARIES
@@ -16,7 +15,7 @@
 # * USD
 
 find_package(TBB REQUIRED)
-find_package(Boost REQUIRED COMPONENTS program_options filesystem iostreams)
+find_package(Boost REQUIRED COMPONENTS program_options iostreams filesystem system thread)
 find_package(OpenSubdiv REQUIRED)
 find_package(OpenEXR REQUIRED)
 find_package(Ptex REQUIRED)

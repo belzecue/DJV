@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * Blosc_FOUND
 # * Blosc_INCLUDE_DIRS
 # * Blosc_LIBRARIES
 #

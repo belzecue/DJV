@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * oidn_FOUND
 # * oidn_INCLUDE_DIRS
 # * oidn_LIBRARIES
 #

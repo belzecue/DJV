@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * OpenVDB_FOUND
 # * OpenVDB_DEFINITIONS
 # * OpenVDB_INCLUDE_DIRS
 # * OpenVDB_LIBRARIES
@@ -17,7 +16,7 @@
 
 find_package(Blosc REQUIRED)
 find_package(TBB REQUIRED)
-find_package(Boost REQUIRED COMPONENTS iostreams)
+find_package(Boost REQUIRED COMPONENTS program_options iostreams filesystem system thread)
 find_package(IlmBase REQUIRED)
 find_package(OpenEXR REQUIRED)
 

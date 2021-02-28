@@ -44,7 +44,7 @@ endif()
 ExternalProject_Add(
     OpenImageIO
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/OpenImageIO
-    DEPENDS ZLIB Boost TIFF OpenEXR JPEG PNG  HDF5 OpenCV TBB OpenVDB Ptex
+    DEPENDS ZLIB Boost TIFF OpenEXR JPEG PNG HDF5 OpenCV TBB OpenVDB Ptex
     GIT_REPOSITORY https://github.com/OpenImageIO/oiio.git
     GIT_TAG Release-2.2.9.0
     PATCH_COMMAND

@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * FFmpeg_FOUND
 # * FFmpeg_INCLUDE_DIRS
 # * FFmpeg_LIBRARIES
 #

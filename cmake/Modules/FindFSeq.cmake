@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * FSeq_FOUND
 # * FSeq_INCLUDE_DIRS
 # * FSeq_LIBRARIES
 #

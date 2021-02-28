@@ -2,10 +2,15 @@
 #
 # This module defines the following variables:
 #
-# * OpenEXR_FOUND
 # * OpenEXR_VERSION
+# * OpenEXR_DEFINITIONS
 # * OpenEXR_INCLUDE_DIRS
 # * OpenEXR_LIBRARIES
+#
+# * OPENEXR_VERSION
+# * OPENEXR_DEFINITIONS
+# * OPENEXR_INCLUDE_DIRS
+# * OPENEXR_LIBRARIES
 #
 # This module defines the following imported targets:
 #
@@ -42,8 +47,10 @@ find_package_handle_standard_args(
     REQUIRED_VARS OpenEXR_INCLUDE_DIR OpenEXR_IlmImf_LIBRARY)
 mark_as_advanced(OpenEXR_INCLUDE_DIR OpenEXR_IlmImf_LIBRARY)
 
+set(OpenEXR_DEFINITIONS -DOpenEXR_FOUND)
 set(OpenEXR_COMPILE_DEFINITIONS OpenEXR_FOUND)
 if(BUILD_SHARED_LIBS)
+    list(APPEND OpenEXR_DEFINITIONS -DOPENEXR_DLL)
     list(APPEND OpenEXR_COMPILE_DEFINITIONS OPENEXR_DLL)
 endif()
 
@@ -59,3 +66,8 @@ if(OpenEXR_FOUND AND NOT TARGET OpenEXR)
     add_library(OpenEXR INTERFACE)
     target_link_libraries(OpenEXR INTERFACE OpenEXR::IlmImf)
 endif()
+
+set(OPENEXR_VERSION ${OpenEXR_VERSION})
+set(OPENEXR_DEFINITIONS ${OpenEXR_DEFINITIONS})
+set(OPENEXR_INCLUDE_DIRS ${OpenEXR_INCLUDE_DIRS})
+set(OPENEXR_LIBRARIES ${OpenEXR_LIBRARIES})

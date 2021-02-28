@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * RtAudio_FOUND
 # * RtAudio_INCLUDE_DIRS
 # * RtAudio_LIBRARIES
 #

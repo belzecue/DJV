@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * Imath_FOUND
 # * Imath_INCLUDE_DIRS
 # * Imath_LIBRARIES
 #

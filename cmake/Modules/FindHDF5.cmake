@@ -2,9 +2,11 @@
 #
 # This module defines the following variables:
 #
-# * HDF5_FOUND
+# * HDF5_DEFINITIONS
 # * HDF5_INCLUDE_DIRS
 # * HDF5_LIBRARIES
+# * HDF5_C_LIBRARIES
+# * HDF5_CXX_LIBRARIES
 #
 # This module defines the following imported targets:
 #
@@ -36,14 +38,21 @@ else()
     find_library(hdf5_hl_LIBRARY NAMES hdf5_hl libhdf5_hl)
     find_library(hdf5_LIBRARY NAMES hdf5 libhdf5)
 endif()
-set(HDF5_LIBRARIES
-    ${hdf5_hl_cpp_LIBRARY}
-    ${hdf5_cpp_LIBRARY}
+set(HDF5_C_LIBRARIES
     ${hdf5_hl_LIBRARY}
     ${hdf5_LIBRARY}
     ${ZLIB_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CMAKE_DL_LIBS})
+set(HDF5_CXX_LIBRARIES
+    ${hdf5_hl_cpp_LIBRARY}
+    ${hdf5_cpp_LIBRARY}
+    ${ZLIB_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CMAKE_DL_LIBS})
+set(HDF5_LIBRARIES
+    ${HDF5_C_LIBRARIES}
+    ${HDF5_CXX_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
@@ -60,6 +69,11 @@ mark_as_advanced(
     hdf5_cpp_LIBRARY
     hdf5_hl_LIBRARY
     hdf5_LIBRARY)
+
+set(HDF5_DEFINITIONS)
+if(BUILD_SHARED_LIBS)
+    list(APPEND HDF5_DEFINITIONS -DH5_BUILT_AS_DYNAMIC_LIB)
+endif()
 
 if(HDF5_FOUND AND NOT TARGET HDF5::hdf5_hl_cpp)
     add_library(HDF5::hdf5_hl_cpp UNKNOWN IMPORTED)

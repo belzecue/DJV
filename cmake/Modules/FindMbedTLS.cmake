@@ -2,7 +2,6 @@
 #
 # This module defines the following variables:
 #
-# * MbedTLS_FOUND
 # * MbedTLS_INCLUDE_DIRS
 # * MbedTLS_LIBRARIES
 #
